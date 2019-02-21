@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TableRow from './TableRow';
 
+import Loader from 'react-loader-spinner';
+
 export default class Index extends Component {
 
   constructor(props) {

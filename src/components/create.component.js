@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
+import Loader from 'react-loader-spinner'
 
 export default class Create extends Component {
   constructor(props) {
@@ -40,28 +41,34 @@ export default class Create extends Component {
       business_name: this.state.business_name,
       business_gst_number: this.state.business_gst_number
     };
-    console.log('object befor post', obj);
-    axios.post('http://localhost:4000/business/add', obj)
+    console.log('object befor post', obj.person_name);
+    if(!obj.person_name || !obj.business_name || !obj.business_gst_number) {
+      swal('Whoa!', 'Missing Values!', 'error');
+    }else{
+      axios.post('http://localhost:4000/business/add', obj)
         .then(res => 
           // console.log('response from saved data', res.data)
           success(res.data)          
         );
+    }
 
-        function success(dat){
-          console.log('received data', dat);
-          if(dat.business === 'business in added successfully') {
-            swal('Good job!', 'Saved Successfully!', 'success');
-          }else{
-            swal('Whoa!', 'Error in saving the data!', 'error');
-          }
-        }
-                
-    
     this.setState({
       person_name: '',
       business_name: '',
       business_gst_number: ''
     })
+      
+    function success(dat){
+      console.log('received data', dat);
+      if(dat.business === 'business in added successfully') {
+        swal('Good job!', 'Saved Successfully!', 'success');
+      }else{
+        swal('Whoa!', 'Error in saving the data!', 'error');
+      }
+    }
+    
+  
+    
   }
  
   render() {
@@ -76,7 +83,7 @@ export default class Create extends Component {
                       className="form-control" 
                       value={this.state.person_name}
                       onChange={this.onChangePersonName}
-                      required/>
+                      />
                 </div>
                 <div className="form-group">
                     <label>Business Name: </label>
@@ -84,7 +91,7 @@ export default class Create extends Component {
                       className="form-control"
                       value={this.state.business_name}
                       onChange={this.onChangeBusinessName}
-                      required/>
+                      />
                 </div>
                 <div className="form-group">
                     <label>GST Number: </label>
@@ -92,12 +99,24 @@ export default class Create extends Component {
                       className="form-control"
                       value={this.state.business_gst_number}
                       onChange={this.onChangeGstNumber}
-                      required/>
+                      />
                 </div>
-                <div className="form-group">
-                    <input type="submit" value="Register Business" className="btn btn-primary"/>
+                <div className="row">
+                <div className="col-md-11">
+                  <input type="submit" style={{width: '100%'}} value="Register Business" className="btn btn-primary"/>
+                </div>
+                <div className="col-md-1">
+                <Loader 
+                      type="Oval"
+                      color="#00BFFF"
+                      height="32"	
+                      width="32"
+                    /> 
+                </div>
+                   
                 </div>
             </form>
+            
         </div>
     )
   }
