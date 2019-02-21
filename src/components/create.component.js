@@ -2,7 +2,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import swal from 'sweetalert';
-import Loader from 'react-loader-spinner'
+import Loader from 'react-loader-spinner';
+// import Button from 'react-bootstrap-button-loader';
 
 export default class Create extends Component {
   constructor(props) {
@@ -102,18 +103,9 @@ export default class Create extends Component {
                       />
                 </div>
                 <div className="row">
-                <div className="col-md-11">
+                <div className="col-md-12">
                   <input type="submit" style={{width: '100%'}} value="Register Business" className="btn btn-primary"/>
-                </div>
-                <div className="col-md-1">
-                <Loader 
-                      type="Oval"
-                      color="#00BFFF"
-                      height="32"	
-                      width="32"
-                    /> 
-                </div>
-                   
+                </div>     
                 </div>
             </form>
             
