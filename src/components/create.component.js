@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 export default class Create extends Component {
   constructor(props) {
@@ -39,8 +40,22 @@ export default class Create extends Component {
       business_name: this.state.business_name,
       business_gst_number: this.state.business_gst_number
     };
+    console.log('object befor post', obj);
     axios.post('http://localhost:4000/business/add', obj)
-        .then(res => console.log(res.data));
+        .then(res => 
+          // console.log('response from saved data', res.data)
+          success(res.data)          
+        );
+
+        function success(dat){
+          console.log('received data', dat);
+          if(dat.business === 'business in added successfully') {
+            swal('Good job!', 'Saved Successfully!', 'success');
+          }else{
+            swal('Whoa!', 'Error in saving the data!', 'error');
+          }
+        }
+                
     
     this.setState({
       person_name: '',
@@ -61,7 +76,7 @@ export default class Create extends Component {
                       className="form-control" 
                       value={this.state.person_name}
                       onChange={this.onChangePersonName}
-                      />
+                      required/>
                 </div>
                 <div className="form-group">
                     <label>Business Name: </label>
@@ -69,7 +84,7 @@ export default class Create extends Component {
                       className="form-control"
                       value={this.state.business_name}
                       onChange={this.onChangeBusinessName}
-                      />
+                      required/>
                 </div>
                 <div className="form-group">
                     <label>GST Number: </label>
@@ -77,7 +92,7 @@ export default class Create extends Component {
                       className="form-control"
                       value={this.state.business_gst_number}
                       onChange={this.onChangeGstNumber}
-                      />
+                      required/>
                 </div>
                 <div className="form-group">
                     <input type="submit" value="Register Business" className="btn btn-primary"/>
