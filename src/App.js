@@ -9,6 +9,9 @@ import Create from './components/create.component';
 import Edit from './components/edit.component';
 import Index from './components/index.component';
 
+import Genderindex from './components/gender/index.component';
+import Gendercreate from './components/gender/create.component';
+
 class App extends Component {
   render() {
     return (
@@ -19,8 +22,11 @@ class App extends Component {
             <Link to={'/'} className="navbar-brand">React CRUD Example</Link>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
+                <li className="nav-item">
                   <Link to={'/'} className="nav-link">Home</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to={'/gender/index'} className="nav-link">Gender</Link>
                 </li>
                 <li className="nav-item">
                   <Link to={'/create'} className="nav-link">Create</Link>
@@ -36,6 +42,9 @@ class App extends Component {
               <Route exact path='/create' component={ Create } />
               <Route path='/edit/:id' component={ Edit } />
               <Route path='/index' component={ Index } />
+
+              <Route path='/gender/index' component={ Genderindex } />
+              <Route path='/gender/create' component={ Gendercreate } />
           </Switch>
         </div>
       </Router>
